@@ -53,6 +53,9 @@ def create_training():
             # convert to grey scale
             grey = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
 
+            # blurring the image for better detecttion
+            grey = cv.GaussianBlur(grey, (7,7), 0)
+
             # now providing image to the model and getting the rectangle' dimention
             face_rect = haar_cascade.detectMultiScale(grey, scaleFactor=1.1, minNeighbors=3)
 
@@ -85,7 +88,7 @@ face_recognizer.train(features,labels)
 
 # now saving the features and labels list in seperate files
 np.save("features.npy", features)
-np.save("labels,npy", labels)
+np.save("labels.npy", labels)
 
 # saving the trainde model in a yml file 
 face_recognizer.save("face_trained.yml")
